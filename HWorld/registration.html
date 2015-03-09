@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+  <title>Registration Form</title>
+  <style type="text/css">
+    .container {
+        width: 400px;
+        clear: both;
+    }
+    .container input {
+        width: 100%;
+        clear: both;
+    }
+    .req{color: #FF0000;}
+    </style>
+
+<script type="text/javascript">
+function try1(form1)//Validate form entries with javascript if html5 not available
+{
+  var fnamE  = new RegExp("^([a-zA-Z]+)$");
+  var lnamE  = new RegExp("[a-zA-z]+([ '-][a-zA-Z]+)*");
+  var add1E  = new RegExp("\\d+\\s+([a-zA-Z]+$|[a-zA-Z]+\\s[a-zA-Z]+$|[a-zA-Z]+\\s[a-zA-Z]+\\s[a-zA-Z]+\\s*)");
+  var add2E  = new RegExp("^(([a-zA-Z])\\w+(\\.|\\s)+([0-9])+)$");
+  var cityE  = new RegExp("^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$");
+  var stateE = new RegExp("^(?:A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$");
+  var zipE   = new RegExp("^([0-9]{5})$|^([0-9]{5}\\-[0-9]{4})$");
+  var ctryE  = new RegExp("^US$+{2}");
+
+  //Valide First Name
+  if(form1.first_name.value == null || form1.first_name.value == "")
+  {
+    alert("First name must be filled out");
+    form1.first_name.focus();
+    return false;
+  }
+  else
+  {
+    if(fnamE.test(form1.first_name.value))
+    {
+      alert("First name can only contain letters");
+      form1.first_name.focus();
+      return false;
+    }
+  }
+
+  //Validate Last Name
+  if(form1.last_name.value == null || form1.last_name.value == "")
+  {
+    alert("Last Name must be filled out");
+    form1.last_name.focus();
+    return false;
+  }
+  else
+  {
+    if(lnamE.test(form1.last_name.value))
+    {
+      alert("Last name must contain only letters(also letters with combination of ', and -"+count);
+      form1.last_name.focus();
+      return false;
+    }
+  }
+
+  //Validate Address1
+  if(form1.address1.value == null || form1.address1.value == "")
+  {
+    alert("Address must be filled out");
+    form1.address1.focus();
+    return false;
+  }
+  else
+  {
+    if(add1E.test(form1.address1.value))
+    {
+      alert("Address may contain letters, periods, and -'s");
+      form1.address1.focus();
+      return false;
+    }
+  }
+
+  //Validate Address2
+  if(!(form1.address2.value == null || form1.address2.value == ""))
+  {
+    if(add2E.test(form1.address2.value))
+    {
+      alert("Address may contain format: Apt. 32 or Apartment 32");
+      form1.address2.focus();
+      return false;
+    }
+  }
+
+  //Validate City
+  if(form1.city.value == null || form1.city.value == "")
+  {
+    alert("City must be filled out");
+    form1.city.focus();
+    return false;
+  }
+  else
+  {
+    if(cityE.test(form1.city.value))
+    {
+      alert("City must contain only letters");
+      form1.city.focus();
+      return false;
+    }
+  }
+
+  //Validate State
+  if (form1.state.value == null || form1.state.value == "")
+  {
+    alert("State must be filled out");
+    form1.state.focus();
+    return false;
+  }
+  else
+  {
+    if(stateE.test(form1.state.value))
+    {
+      alert("State must be valid two  capitalized letter state code");
+      form1.state.focus();
+      return false;
+    }
+  }
+
+  //Valide Zip Code
+  if (form1.zip.value == null || form1.zip.value == "") 
+  {
+    alert("Zip code must be filled out");
+    form1.zip.focus();
+    return false;
+  }
+  else
+  { 
+    if(zipE.test(form1.zip.value))
+    {
+      alert("Zip code must contain only numbers(length 5 or 9 digits)");
+      form1.zip.focus();
+      return false;
+    }
+  }
+
+  //Valide Country
+  if(form1.country.value == null || form1.country.value == "")
+  {
+    alert("Country must be filled out");
+    form1.country.focus();
+    return false;
+  }
+  else
+  {
+    if(!ctryE.test(form1.country.value))
+    {
+      alert("Country must equal 'US' ")
+      form1.country.focus();
+      return false;
+    }
+  }
+    return true;
+}
+</script>
+</head>
+ 
+<body onload='document.form1.first_name.focus()'><!--Form validates with html and javascript on submit-->
+<h2>Registration Form</h2>
+<span class ="req">* Required field</span>
+<form name="form1" method="post" action="registration.php"> 
+    <div class="container">
+    First Name<span class="req">*</span>: <input type="text" name="first_name" value="" required placeholder="Enter a valid first name" pattern="^([a-zA-Z]+)$"/><br /><br />
+    Last Name<span class="req">*</span>: <input type="text" name="last_name" value="" required placeholder="Enter a valid last name" pattern="[a-zA-z]+([ '-][a-zA-Z]+)*"/><br /><br />
+    Address1<span class="req">*</span>: <input type="text" name="address1" value="" pattern="\d+\s+([a-zA-Z]+$|[a-zA-Z]+\s[a-zA-Z]+$|[a-zA-Z]+\s[a-zA-Z]+\s[a-zA-Z]+\s*)" required placeholder="Enter valid address ex:555 State Street" /><br /><br />
+    Address2: <input type="text" name="address2" value="" pattern="^(([a-zA-Z])\w+(\.|\s)+([0-9])+)$" placeholder="Enter valid address ex:Apt. 32"/><br /><br />
+    City<span class="req">*</span>: <input type="text" name="city" required="required" pattern="^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$"/><br /><br />
+    State<span class="req">*</span>: <input type="text" name="state" value="" required placeholder="Enter valid state code ex:MI" pattern="^(?:A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$" maxlength="2"/><br /><br />
+    Zip<span class="req">*</span>: <input type="text" name="zip" size="9" required="required" pattern="^([0-9]{5})$|^([0-9]{5}\-[0-9]{4})$" maxlength="10" minlength="5" title="5 or 9(xxxxx-xxxx) digits"/><br /><br />
+    Country<span class="req">*</span>: <input type="text" name="country" value="US" required="required" pattern="^US$+{2}" readonly/><br /><br />
+    </div>
+ 
+  <input type="hidden" name="secret" value="888" />
+  <input type="submit" value="Submit" onclick="return try1(document.form1)" />
+  <input type="reset" value="Clear" />
+</form>
+</body>
+</html>
